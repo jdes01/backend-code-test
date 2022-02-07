@@ -34,3 +34,8 @@ Im afraid Im not really sure if repeating the same business logic I used in the 
 - Again, tests quality aint the best;
 - Again, since I didnt want to violate any CQRS principle, I decided that my commands wouldnt return values. The problem comes when, for example, my deleteGeniallyController asks deleteGeniallyService to delete a genially with a given id, the controller wont be aware of the service not finding a genially with the same id. 
 
+
+## Stage 3:
+- Ok we could use domain events to track the amount of geniallies created. We should create a DTO, GeniallyWasCreated.event.ts, to store all information related, such as eventId, aggregateRootId, genially info (name, description, etc) and the date. Then, we should dispatch it in an event bus so it eventually reaches its handler. Observers should also get notified.
+- In that particular case, when dispatching it in our event bus, a handler should receive it and update the amount of geniallies created. 
+- 
