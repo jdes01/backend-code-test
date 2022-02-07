@@ -12,3 +12,19 @@ services:
     volumes:
       - .:/app
     container_name: code-test-backend
+    depends_on:
+      - code-test-db
+
+  code-test-db:
+    image: mongo
+    container_name: code-test-db
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./db.js:/docker-entrypoint-initdb.d/db.js:rw
+      - ./mongo-volume:/data/db
+      - ./.env:/.env
+    ports:
+      - "27017:27017"

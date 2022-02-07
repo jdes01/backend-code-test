@@ -1,7 +1,8 @@
 import {Request, Response} from "express";
 import RenameGeniallyService from "../../application/useCases/RenameGeniallyService";
 import { RenameGeniallyCommand } from "../../application/commands/renameGenially.command";
-import InMemoryGeniallyRepository from "../persistance/InMemoryGeniallyRepository";
+//import InMemoryGeniallyRepository from "../persistance/InMemoryGeniallyRepository";
+import MongoGeniallyRepository from "../persistance/MongoGeniallyRepository";
 
 export const renameGenially = (req: Request, res: Response) => {
 
@@ -16,7 +17,8 @@ export const renameGenially = (req: Request, res: Response) => {
     }
 
     const renameGeniallyCommand = new RenameGeniallyCommand(req.body.id, req.body.newName);
-    const geniallyRepository = new InMemoryGeniallyRepository();
+    //const geniallyRepository = new InMemoryGeniallyRepository();
+    const geniallyRepository = new MongoGeniallyRepository();
     const renameGeniallyService = new RenameGeniallyService(geniallyRepository);
 
     renameGeniallyService.execute(renameGeniallyCommand);

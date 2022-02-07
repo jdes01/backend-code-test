@@ -1,7 +1,8 @@
 import {Request, Response} from "express";
 import DeleteGeniallyService from "../../application/useCases/DeleteGeniallyService";
 import { DeleteGeniallyCommand } from "../../application/commands/deleteGenially.command";
-import InMemoryGeniallyRepository from "../persistance/InMemoryGeniallyRepository";
+//import InMemoryGeniallyRepository from "../persistance/InMemoryGeniallyRepository";
+import MongoGeniallyRepository from "../persistance/MongoGeniallyRepository";
 
 export const deleteGenially = (req: Request, res: Response) => {
 
@@ -11,7 +12,8 @@ export const deleteGenially = (req: Request, res: Response) => {
     }
     
     const deleteGeniallyCommand = new DeleteGeniallyCommand(req.body.id);
-    const geniallyRepository = new InMemoryGeniallyRepository();
+    //const geniallyRepository = new InMemoryGeniallyRepository();
+    const geniallyRepository = new MongoGeniallyRepository();
     const deleteGeniallyService = new DeleteGeniallyService(geniallyRepository);
 
     deleteGeniallyService.execute(deleteGeniallyCommand);
